@@ -16,7 +16,7 @@ const designer = (controller = null) => {
     const addButton = () => {
       const button = document.createElement('input');
       button.setAttribute('type', 'submit');
-      button.classList.add('btn');
+      button.classList.add('button');
       return button;
     };
 

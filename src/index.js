@@ -3,9 +3,10 @@ import requests from './requestManager';
 import designer from './view_designer';
 import { fieldsForAddGame, fieldsForSetScore } from './form_data';
 
+designer().addElement(document.querySelector('body'), 'h1', 'LeaderBoard API');
 const container = designer().addElement(document.querySelector('body'), 'div', null, ['container']);
 const gameContainer = designer().addElement(container, 'div', null, ['container-vert']);
-designer().addElement(gameContainer, 'h2', 'Create a new game', null);
+designer().addElement(gameContainer, 'h2', 'Create game', null);
 
 designer().createForm(gameContainer, 'game', 'form', fieldsForAddGame, requests.setGame, null);
 
