@@ -1,4 +1,8 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: 'development',
@@ -6,7 +10,7 @@ module.exports = {
     contentBase: './dist',
   },
   entry: {
-    index: './src/scripts/index.js',
+    index: './src/index.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
