@@ -13,7 +13,7 @@ const storageManager = () => {
   let currentGame;
 
   const save = () => {
-    localStorage.setItem('projects', JSON.stringify(games));
+    localStorage.setItem('games', JSON.stringify(games));
   };
 
   return {
@@ -21,6 +21,4 @@ const storageManager = () => {
   };
 };
 
-const storage = storageManager();
-
-export { storage as default };
+export { storageManager as default };

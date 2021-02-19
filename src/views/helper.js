@@ -1,4 +1,4 @@
-const designer = (controller = null) => {
+const viewHelper = (storage) => {
   const addElement = (container, type, _textContent, classes) => {
     const element = document.createElement(type);
     if (_textContent != null) {
@@ -55,18 +55,19 @@ const designer = (controller = null) => {
     form.appendChild(addButton());
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      callback(e.target.elements);
+      callback(e.target.elements, storage);
       form.classList.add('d-none');
     });
     return form;
   };
 
-  const displayError = (container, message) => {
+  const displayError = (message) => {
+    const container = document.querySelector('.warnings');
     container.innerHTML = '';
     addElement(container, 'p', message, ['warning']);
     setTimeout(() => {
       container.innerHTML = '';
-    }, 3000);
+    }, 2000);
   };
 
   return {
@@ -76,4 +77,4 @@ const designer = (controller = null) => {
   };
 };
 
-export { designer as default };
+export { viewHelper as default };

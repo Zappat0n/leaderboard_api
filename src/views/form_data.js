@@ -1,6 +1,6 @@
 const fieldsForAddGame = [
   {
-    field: 'game',
+    field: 'name',
     text: 'Game: ',
     type: 'text',
     required: 'true',

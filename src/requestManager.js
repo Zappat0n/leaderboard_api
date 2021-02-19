@@ -1,45 +1,53 @@
 import { createGameRequest, getScoresRequest, setScoreRequest } from './requests';
+import game from './game';
+import gamesView from './views/games';
+import leaderboardView from './views/leaderboard';
+import viewHelper from './views/helper';
 
 const requests = {
-  setGame(element) {
+  setGame(element, storage) {
     const data = {
       name: element.name,
     };
-
     const request = createGameRequest(data);
     fetch(request)
+      .then((response) => response.json())
       .then((response) => {
-        console.log(response.json());
+        if (response.result.includes('ID:')) {
+          const id = response.result.split(' ')[3];
+          const g = game(data.name.value, id);
+          storage.games.push(g);
+          storage.save();
+          storage.currentGame = id;
+          gamesView(storage).display();
+        } else {
+          viewHelper().displayError(response.result);
+        }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => viewHelper().displayError(error));
   },
-  setScore(element) {
-    const id = 'JJbaGvhdosr9PTKcIzKO';
+  setScore(element, storage) {
     const data = {
       user: element.user.value,
       score: element.score.value,
     };
-    const request = setScoreRequest(id, data);
+    const request = setScoreRequest(storage.currentGame, data);
     fetch(request)
+      .then((response) => response.json())
       .then((response) => {
-        console.log(response.json());
+        viewHelper().displayError(response.result);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => viewHelper().displayError(error));
   },
-  getScores() {
-    const id = 'JJbaGvhdosr9PTKcIzKO';
-    const request = getScoresRequest(id);
+  getScores(storage) {
+    const request = getScoresRequest(storage.currentGame);
     fetch(request)
+      .then((response) => response.json())
       .then((response) => {
-        console.log(response.json());
+        console.log(response);
+        leaderboardView().display(response);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => viewHelper().displayError(error));
   },
 };
 
